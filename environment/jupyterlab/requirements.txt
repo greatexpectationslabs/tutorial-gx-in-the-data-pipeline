@@ -1,0 +1,11 @@
+apache-airflow==2.10.1
+apache-airflow-client==2.10.0
+black==24.8.0
+great_expectations==1.0.6
+isort==5.13.2
+jupyterlab==4.2.5
+nbmake==1.5.4
+pandas==2.1.4
+psycopg2-binary==2.9.9
+pytest==8.3.2
+SQLAlchemy==1.4.54
