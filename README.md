@@ -33,8 +33,9 @@ This repo hosts hands-on tutorials that guide you through working examples of GX
    ```
    docker compose up --build --detach
    ```
-   > [!Initial Docker compose build time]
-   > The first time you start the Docker compose instance, the constituent Docker images need to be built. This process can take several minutes.
+
+   > [!NOTE]
+   > The first time that you start the Docker compose instance, the underlying Docker images need to be built. This process can take several minutes.
 
 4. Access the JupyterLab (to run tutorial cookbooks) and Airflow (to run data pipelines) applications using a web browser.
    * JupyterLab: `http://localhost:8888/lab`
