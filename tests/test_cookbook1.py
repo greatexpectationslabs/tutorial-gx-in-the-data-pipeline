@@ -1,10 +1,12 @@
 """Tests for Cookbook1 functions."""
 
 import datetime
+import time
 
 import great_expectations as gx
 import pandas as pd
 import pytest
+
 import tutorial_code as tutorial
 
 
@@ -116,6 +118,7 @@ def test_clean_customer_data(raw_customer_data):
 
 
 def test_validate_customer_data_with_valid_data(valid_cleaned_customer_data):
+    """Test validate_customer_data succeeds on valid data."""
     validation_result = tutorial.cookbook1.validate_customer_data(
         valid_cleaned_customer_data
     )
@@ -127,6 +130,7 @@ def test_validate_customer_data_with_valid_data(valid_cleaned_customer_data):
 
 
 def test_validate_customer_data_with_invalid_data(invalid_cleaned_customer_data):
+    """Test validate_customer_data fails on invalid data and correctly flags failing Expectation."""
     validation_result = tutorial.cookbook1.validate_customer_data(
         invalid_cleaned_customer_data
     )
@@ -145,3 +149,20 @@ def test_validate_customer_data_with_invalid_data(invalid_cleaned_customer_data)
     )
     assert validation_result["success"] is False
     assert failed_expectations == ["expect_column_values_to_match_regex"]
+
+
+def test_airflow_dag_trigger():
+    """Test Airflow DAG trigger runs without error."""
+
+    tutorial.db.drop_all_table_rows("customers")
+    assert tutorial.db.get_table_row_count("customers") == 0
+
+    _, dag_run_state = tutorial.airflow.trigger_airflow_dag(
+        "cookbook1_validate_and_ingest_to_postgres"
+    )
+
+    assert str(dag_run_state) == "queued"
+
+    # Wait for DAG to run.
+    time.sleep(5)
+    assert tutorial.db.get_table_row_count("customers") == 15266

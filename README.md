@@ -14,9 +14,9 @@ This repo hosts hands-on tutorials that guide you through working examples of GX
 1. [Additional resources](#additional-resources)
 
 ## Prerequisites
-* Docker: You use Docker compose to run the containerized tutorial environment. [Docker Desktop](https://docs.docker.com/desktop/) is recommended.
+* Docker: You use Docker compose to run the containerized tutorial environment. [Docker Desktop](https://www.docker.com/products/docker-desktop/) is recommended.
 
-* Git: You use `git` to clone this repository and run the contents locally. Download `git` [here](https://git-scm.com/downloads).
+* Git: You use Git to clone this repository and access the contents locally. Download Git [here](https://git-scm.com/downloads).
 
 ## Quickstart
 1. Clone this repo locally.
@@ -33,8 +33,10 @@ This repo hosts hands-on tutorials that guide you through working examples of GX
    ```
    docker compose up --build --detach
    ```
+   > [!Initial Docker compose build time]
+   > The first time you start the Docker compose instance, the constituent Docker images need to be built. This process can take several minutes.
 
-4. Access JupyterLab (to run tutorial cookbooks) and Airflow (to examine data pipeline) using a web browser.
+4. Access the JupyterLab (to run tutorial cookbooks) and Airflow (to run data pipelines) applications using a web browser.
    * JupyterLab: `http://localhost:8888/lab`
      * No credentials are required.
    * Airflow: `http://localhost:8080`
@@ -54,7 +56,7 @@ Cookbooks will be progressively added to this repo; the table below lists the cu
 
 | # | Cookbook topic | Cookbook status |
 | :--- | :-- | :-- |
-| Cookbook 1 | Data validation during ingestion of data into database (happy path) | [path to cookbook](cookbooks/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) |
+| Cookbook 1 | Data validation during ingestion of data into database (happy path) | [Link to Cookbook 1](cookbooks/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) |
 | Cookbook 2 | Data validation during ingestion of data into database (fail + then take action) | Coming soon |
 | Cookbook 3 | Data validation of Postgres database tables \* | Coming soon |
  | Cookbook 4 | Data validation and automated handling in a medallion data pipeline \* | Coming soon |
