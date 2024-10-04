@@ -2,6 +2,7 @@ import os
 
 import great_expectations as gx
 import pytest
+import requests
 
 TEST_PREFIX = "ci-test-"
 
@@ -57,3 +58,27 @@ def tutorial_db_data_source(
         data_source = context.get_datasource(DATA_SOURCE_NAME)
 
     return data_source, context
+
+
+@pytest.fixture
+def airflow_api_healthcheck():
+    """Check that the local airflow api is available."""
+
+    def run_healthcheck():
+        retry = requests.adapters.Retry(
+            total=10,
+            connect=5,
+            read=5,
+            allowed_methods=["GET"],
+            backoff_factor=10,
+            status_forcelist=[500, 502, 503, 504],
+        )
+        session = requests.Session()
+        session.auth = ("admin", "gx")
+        session.mount("http://", requests.adapters.HTTPAdapter(max_retries=retry))
+
+        response = session.get("http://airflow:8080/api/v1/dags")
+
+        return True
+
+    return run_healthcheck()

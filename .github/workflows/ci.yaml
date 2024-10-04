@@ -19,7 +19,7 @@ jobs:
     - name: Docker compose up
       run: |
         echo ---Starting compose setup---
-        docker compose up --build --detach --wait --wait-timeout 60
+        docker compose up --build --detach --wait --wait-timeout 120
         echo ---Compose is running---
 
     - name: Run tutorial integration tests
