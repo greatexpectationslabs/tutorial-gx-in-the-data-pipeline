@@ -61,8 +61,8 @@ def tutorial_db_data_source(
 
 
 @pytest.fixture
-def airflow_api_healthcheck():
-    """Check that the local airflow api is available."""
+def wait_on_airflow_api_healthcheck():
+    """Check that the local Airflow API is available using retry."""
 
     def run_healthcheck():
         retry = requests.adapters.Retry(
@@ -79,6 +79,9 @@ def airflow_api_healthcheck():
 
         response = session.get("http://airflow:8080/api/v1/dags")
 
-        return True
+        return response.json()
 
-    return run_healthcheck()
+    response = run_healthcheck()
+
+    if response.get("dags", None) is None:
+        raise Exception("Unable to reach local Airflow API.")

@@ -6,6 +6,7 @@ import time
 import great_expectations as gx
 import pandas as pd
 import pytest
+
 import tutorial_code as tutorial
 
 
@@ -150,10 +151,10 @@ def test_validate_customer_data_with_invalid_data(invalid_cleaned_customer_data)
     assert failed_expectations == ["expect_column_values_to_match_regex"]
 
 
-def test_airflow_dag_trigger(airflow_api_healthcheck):
+def test_airflow_dag_trigger(wait_on_airflow_api_healthcheck):
     """Test Airflow DAG trigger runs without error."""
 
-    airflow_api_healthcheck
+    wait_on_airflow_api_healthcheck
 
     tutorial.db.drop_all_table_rows("customers")
     assert tutorial.db.get_table_row_count("customers") == 0
