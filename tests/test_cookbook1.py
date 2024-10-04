@@ -6,7 +6,6 @@ import time
 import great_expectations as gx
 import pandas as pd
 import pytest
-
 import tutorial_code as tutorial
 
 
