@@ -3,9 +3,10 @@ import os
 import pathlib
 
 import pandas as pd
-import tutorial_code as tutorial
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+
+import tutorial_code as tutorial
 
 
 def cookbook1_validate_and_ingest_to_postgres():

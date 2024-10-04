@@ -44,6 +44,12 @@ services:
     ports:
       - 8080:8080
     stop_grace_period: 30s
+    healthcheck:
+      test: ["CMD", "bash", "/airflow-healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
 
   jupyterlab:
     container_name: tutorial-gx-in-the-data-pipeline-jupyterlab
@@ -61,6 +67,8 @@ services:
       - ./tests:/tests
       - ./cookbooks/tutorial_code:/tutorial_code
       - ./environment/jupyterlab/requirements.txt:/requirements.txt
+    depends_on:
+      - airflow
 
 networks:
   gxnet:
