@@ -3,9 +3,10 @@ import os
 import pathlib
 
 import pandas as pd
-import tutorial_code as tutorial
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+
+import tutorial_code as tutorial
 
 
 def cookbook1_validate_and_ingest_to_postgres():
@@ -42,7 +43,7 @@ default_args = {
 gx_dag = DAG(
     "cookbook1_validate_and_ingest_to_postgres",
     default_args=default_args,
-    schedule_interval="0 0 * * *",
+    schedule="0 0 * * *",
     catchup=False,
 )
 

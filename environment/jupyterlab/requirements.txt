@@ -4,6 +4,7 @@ black[jupyter]==24.8.0
 great_expectations==1.0.6
 isort==5.13.2
 jupyterlab==4.2.5
+jupyterlab_myst==2.4.2
 nbmake==1.5.4
 pandas==2.1.4
 psycopg2-binary==2.9.9

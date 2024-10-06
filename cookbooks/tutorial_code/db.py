@@ -1,5 +1,7 @@
 """Helper functions for tutorial notebooks and DAGs to interact with the postgres database."""
 
+from typing import Dict, List
+
 import pandas as pd
 import sqlalchemy
 
@@ -56,6 +58,66 @@ def _run_query(query: str) -> sqlalchemy.engine.cursor.LegacyCursorResult:
         results = connection.execute(query)
 
     return results
+
+
+def _get_table_columns(table_name: str) -> List[Dict]:
+    """Return table columns and basic schema for specified table."""
+
+    query = f"""
+        select column_name, data_type, character_maximum_length, is_nullable
+        from information_schema.columns
+        where table_schema = 'public' AND table_name = '{table_name}'
+        order by ordinal_position;
+    """
+
+    results = _run_query(query)
+    return results.fetchall()
+
+
+def _get_table_primary_key_column(table_name: str) -> str:
+    """Return the name of the primary key column for specified table."""
+    query = f"""
+        SELECT c.column_name
+        FROM information_schema.table_constraints tc
+        JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_name)
+        JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema
+        AND tc.table_name = c.table_name AND ccu.column_name = c.column_name
+        WHERE constraint_type = 'PRIMARY KEY' and tc.table_name = '{table_name}';
+    """
+    results = _run_query(query)
+    return results.fetchone()[0]
+
+
+def get_table_schema(table_name: str) -> pd.DataFrame:
+    """Return schema information for specified table in dataframe format."""
+
+    columns = _get_table_columns(table_name)
+    pk_column = _get_table_primary_key_column(table_name)
+
+    schema = []
+
+    for column in columns:
+        pk_designator = False
+        data_type = column["data_type"]
+
+        if column["column_name"] == pk_column:
+            pk_designator = True
+
+        if column["data_type"] == "character varying":
+            data_type = f"varchar({int(column['character_maximum_length'])})"
+
+        nullable = False if column["is_nullable"] == "NO" else True
+
+        schema.append(
+            {
+                "column": column["column_name"],
+                "data_type": data_type,
+                "nullable": nullable,
+                "primary_key": pk_designator,
+            }
+        )
+
+    return pd.DataFrame(schema)
 
 
 def get_table_row_count(table_name: str) -> int:

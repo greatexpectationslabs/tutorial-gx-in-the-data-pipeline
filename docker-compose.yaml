@@ -29,7 +29,7 @@ services:
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow_user:airflow_user_password@postgres:5432/airflow
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      # AIRFLOW__LOGGING__LOGGING_LEVEL: DEBUG
+      AIRFLOW__LOGGING__LOGGING_LEVEL: WARNING
     volumes:
       - ./environment/airflow/dags:/usr/local/airflow/dags
       - ./cookbooks/tutorial_code:/usr/local/airflow/dags/tutorial_code
@@ -64,8 +64,9 @@ services:
       - ./cookbooks:/cookbooks
       - ./data:/cookbooks/data
       - ./environment/airflow/dags:/cookbooks/airflow_dags
-      - ./tests:/tests
       - ./cookbooks/tutorial_code:/tutorial_code
+      - ./static/images:/cookbooks/static/images
+      - ./tests:/tests
       - ./environment/jupyterlab/requirements.txt:/requirements.txt
     depends_on:
       - airflow
