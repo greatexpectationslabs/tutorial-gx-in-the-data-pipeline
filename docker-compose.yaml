@@ -29,7 +29,7 @@ services:
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow_user:airflow_user_password@postgres:5432/airflow
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__LOGGING__LOGGING_LEVEL: WARNING
+      AIRFLOW__LOGGING__LOGGING_LEVEL: INFO
     volumes:
       - ./environment/airflow/dags:/usr/local/airflow/dags
       - ./cookbooks/tutorial_code:/usr/local/airflow/dags/tutorial_code

@@ -40,6 +40,7 @@ If you are an experienced GX user, these tutorials will provide code examples of
 4. Access the JupyterLab (to run tutorial cookbooks) and Airflow (to run data pipelines) applications using a web browser.
    * JupyterLab: `http://localhost:8888/lab`
      * No credentials are required.
+     * Cookbooks can be opened from the JupyterLab File Browser.
    * Airflow: `http://localhost:8080`
      * User: `admin`
      * Password: `gx`
