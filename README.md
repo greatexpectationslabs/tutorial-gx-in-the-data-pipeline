@@ -1,9 +1,9 @@
 # tutorial-gx-in-the-data-pipeline
 This repo hosts hands-on tutorials that guide you through working examples of GX data validation in an Airflow pipeline.
 
-*If you are new to GX*, these tutorials will introduce you to GX concepts and guide you through creating GX data validation workflows that can be triggered and run using Airflow.
+If you are new to GX, these tutorials will introduce you to GX concepts and guide you through creating GX data validation workflows that can be triggered and run using Airflow.
 
-*If you are an experienced GX user*, these tutorials will provide code examples of GX and Airflow integration that can be used as a source of best practices and techniques that can enhance your current data validation pipeline implementations.
+If you are an experienced GX user, these tutorials will provide code examples of GX and Airflow integration that can be used as a source of best practices and techniques that can enhance your current data validation pipeline implementations.
 
 ## README table of contents
 1. [Prerequisites](#prerequisites)
@@ -31,7 +31,7 @@ This repo hosts hands-on tutorials that guide you through working examples of GX
 
 3. Start the tutorial environment using Docker compose.
    ```
-   docker compose up --build --detach
+   docker compose up --build --detach --wait
    ```
 
 > [!NOTE]
@@ -44,7 +44,7 @@ This repo hosts hands-on tutorials that guide you through working examples of GX
      * User: `admin`
      * Password: `gx`
 
-5. Once you are finished running the tutorial environment, stop it using Docker compose:
+5. Once you are finished running the tutorial environment, stop it using Docker compose.
    ```
    docker compose down --volumes
    ```
@@ -55,17 +55,17 @@ Tutorials are presented as "cookbooks" (JupyterLab notebooks) that can be run in
 
 Cookbooks will be progressively added to this repo; the table below lists the current and planned cookbook topics.
 
-| # | Cookbook topic | Cookbook status |
-| :--- | :-- | :-- |
-| Cookbook 1 | Data validation during ingestion of data into database (happy path) | [Link to Cookbook 1](cookbooks/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) |
-| Cookbook 2 | Data validation during ingestion of data into database (fail + then take action) | Coming soon |
-| Cookbook 3 | Data validation of Postgres database tables \* | Coming soon |
- | Cookbook 4 | Data validation and automated handling in a medallion data pipeline \* | Coming soon |
+| Cookbook # | Cookbook topic | Cookbook status |
+| :--: | :-- | :-- |
+| 1 | Data validation during ingestion of data into database (happy path) | [Link to Cookbook 1](cookbooks/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) |
+| 2 | Data validation during ingestion of data into database (fail + then take action) | Coming soon |
+| 3 | Data validation of Postgres database tables \* | Coming soon |
+ | 4 | Data validation and automated handling in a medallion data pipeline \* | Coming soon |
 
 <sup>\* Cookbook execution requires GX Cloud organization credentials. Sign up for a free GX Cloud account [here](https://greatexpectations.io/cloud).</sup>
 
 ## Tutorial environment
-Tutorials are hosted and executed within a containerized environment that is run using Docker compose. The Docker compose setup contains the following containerized services:
+Tutorials are hosted and executed within a containerized environment that is run using Docker compose. The Docker compose setup uses the following containerized services:
 
 * **JupyterLab**. The JupyterLab container hosts the tutorial cookbooks and provides a Python runtime environment for related tutorial scripts.
 
@@ -73,7 +73,7 @@ Tutorials are hosted and executed within a containerized environment that is run
 
 * **Postgres**. The containerized Postgres database hosts the sample data used by the tutorial cookbooks and pipelines.
 
-Additionally, cookbooks that feature GX Cloud-based data validation workflows connect to your GX Cloud organization.
+Cookbooks that feature GX Cloud-based data validation workflows connect to your GX Cloud organization.
 
 ## Tutorial data
 
