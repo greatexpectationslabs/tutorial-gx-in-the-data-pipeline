@@ -63,7 +63,7 @@ Cookbooks will be progressively added to this repo; the table below lists the cu
 | 3 | Data validation of Postgres database tables \* | Coming soon |
  | 4 | Data validation and automated handling in a medallion data pipeline \* | Coming soon |
 
-<sup>\* Cookbook execution requires GX Cloud organization credentials. Sign up for a free GX Cloud account [here](https://greatexpectations.io/cloud).</sup>
+<sup>\* Cookbook execution requires GX Cloud organization credentials. Sign up for a free GX Cloud account [here](https://hubs.ly/Q02TyCZS0).</sup>
 
 ## Tutorial environment
 Tutorials are hosted and executed within a containerized environment that is run using Docker compose. The Docker compose setup uses the following containerized services:
