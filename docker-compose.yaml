@@ -1,0 +1,75 @@
+services:
+
+  postgres:
+    image: postgres:15.3-alpine
+    restart: always
+    container_name: tutorial-gx-in-the-data-pipeline-postgres
+    environment:
+      POSTGRES_USER: gx_user
+      POSTGRES_PASSWORD: gx_user_password
+      POSTGRES_DB: gx
+    volumes:
+      - ./environment/postgres/init_postgres.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data:/var/lib/postgresql/tutorial_data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "gx_user", "-d", "gx"]
+      interval: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - gxnet
+    ports:
+      - 5432:5432
+
+  airflow:
+    build:
+      context: ./environment/airflow
+      dockerfile: airflow.Dockerfile
+    container_name: tutorial-gx-in-the-data-pipeline-airflow
+    environment:
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow_user:airflow_user_password@postgres:5432/airflow
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__LOGGING__LOGGING_LEVEL: INFO
+    volumes:
+      - ./environment/airflow/dags:/usr/local/airflow/dags
+      - ./cookbooks/tutorial_code:/usr/local/airflow/dags/tutorial_code
+      - ./environment/airflow/airflow.cfg:/usr/local/airflow/airflow.cfg
+      - ./environment/airflow/init_airflow.sh:/usr/local/airflow/init_airflow.sh
+      - ./data:/usr/local/airflow/data
+    depends_on:
+      - postgres
+    entrypoint: "/usr/local/airflow/init_airflow.sh"
+    networks:
+      - gxnet
+    ports:
+      - 8080:8080
+    stop_grace_period: 30s
+    healthcheck:
+      test: ["CMD", "bash", "/airflow-healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  jupyterlab:
+    container_name: tutorial-gx-in-the-data-pipeline-jupyterlab
+    build:
+      context: ./environment/jupyterlab
+      dockerfile: jupyterlab.Dockerfile
+    networks:
+      - gxnet
+    ports:
+      - 8888:8888
+    volumes:
+      - ./cookbooks:/cookbooks
+      - ./data:/cookbooks/data
+      - ./environment/airflow/dags:/cookbooks/airflow_dags
+      - ./cookbooks/tutorial_code:/tutorial_code
+      - ./tests:/tests
+      - ./environment/jupyterlab/requirements.txt:/requirements.txt
+    depends_on:
+      - airflow
+
+networks:
+  gxnet:
+    driver: bridge

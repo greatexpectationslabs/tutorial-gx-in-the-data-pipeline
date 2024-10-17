@@ -1,0 +1,42 @@
+name: CI test tutorial docker compose setup
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-tutorial-compose-and-code:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Docker compose up
+      run: |
+        echo ---Starting compose setup---
+        docker compose up --build --detach --wait --wait-timeout 120
+        echo ---Compose is running---
+
+    - name: Run tutorial integration tests
+      run: |
+        echo ---Starting tests---
+        docker exec -t tutorial-gx-in-the-data-pipeline-jupyterlab bash -c 'pytest -v /tests'
+        echo ---Tests completed---
+
+    - name: Run Jupyter notebooks tests
+      run: |
+        echo ---Starting Jupyter notebook tests---
+        docker exec -t tutorial-gx-in-the-data-pipeline-jupyterlab bash -c 'cd /cookbooks && pytest --nbmake Cookbook*.ipynb'
+        echo ---Jupyter notebook tests completed---
+
+    - name: Docker compose down
+      if: success() || failure()
+      run: |
+        echo ---Spinning down compose---
+        docker compose down --volumes
+        echo ---Compose is down---
