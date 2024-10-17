@@ -65,7 +65,6 @@ services:
       - ./data:/cookbooks/data
       - ./environment/airflow/dags:/cookbooks/airflow_dags
       - ./cookbooks/tutorial_code:/tutorial_code
-      - ./static/images:/cookbooks/static/images
       - ./tests:/tests
       - ./environment/jupyterlab/requirements.txt:/requirements.txt
     depends_on:
