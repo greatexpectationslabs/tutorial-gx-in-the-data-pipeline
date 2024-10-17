@@ -40,7 +40,7 @@ If you are an experienced GX user, these tutorials will provide code examples of
 4. Access the JupyterLab (to run tutorial cookbooks) and Airflow (to run data pipelines) applications using a web browser.
    * JupyterLab: `http://localhost:8888/lab`
      * No credentials are required.
-     * Cookbooks can be opened from the JupyterLab File Browser.
+     * [Cookbooks](#cookbooks) can be opened from the JupyterLab File Browser.
    * Airflow: `http://localhost:8080`
      * User: `admin`
      * Password: `gx`
@@ -54,14 +54,19 @@ If you are an experienced GX user, these tutorials will provide code examples of
 
 Tutorials are presented as "cookbooks" (JupyterLab notebooks) that can be run interactively and that provide written explanations of concepts alongside executable code.
 
-Cookbooks will be progressively added to this repo; the table below lists the current and planned cookbook topics.
+Cookbooks will be progressively added to this repo; the table below lists the current and planned cookbook topics. The *Path to running tutorial cookbook* cell provides a localhost link to the running notebook that works when you are actively running the tutorial Docker compose instance.
 
-| Cookbook # | Cookbook topic | Cookbook status |
-| :--: | :-- | :-- |
-| 1 | Data validation during ingestion of data into database (happy path) | [Link to Cookbook 1](cookbooks/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) |
-| 2 | Data validation during ingestion of data into database (fail + then take action) | Coming soon |
-| 3 | Data validation of Postgres database tables \* | Coming soon |
- | 4 | Data validation and automated handling in a medallion data pipeline \* | Coming soon |
+> [!IMPORTANT]
+> Start the tutorial environment with Docker compose before accessing the path to the running tutorial cookbook.
+>
+> If the tutorial environment is not running when you try to access the cookbook, you will receive a connection error.
+
+| No. | Cookbook topic | Cookbook status | Path to running tutorial cookbook | Path to static render of cookbook |
+| :--: | :-- | :-- | :-- | :-- |
+| 1 | Data validation during ingestion of data into database (happy path) | Available | [Click to open and run Cookbook 1](http://localhost:8888/lab/tree/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) | [View  Cookbook 1 on GitHub](cookbooks/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) |
+| 2 | Data validation during ingestion of data into database (pipeline fail + then take action) | Coming soon | | |
+| 3 | Data validation of Postgres database tables \* | Coming soon | | |
+ | 4 | Data validation and automated handling in a medallion data pipeline \* | Coming soon | | |
 
 <sup>\* Cookbook execution requires GX Cloud organization credentials. Sign up for a free GX Cloud account [here](https://hubs.ly/Q02TyCZS0).</sup>
 
