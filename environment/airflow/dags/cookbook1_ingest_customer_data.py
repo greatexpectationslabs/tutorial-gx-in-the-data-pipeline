@@ -1,11 +1,15 @@
 import datetime
+import logging
 import os
 import pathlib
 
 import pandas as pd
-import tutorial_code as tutorial
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+
+import tutorial_code as tutorial
+
+log = logging.getLogger("GX validation")
 
 
 def cookbook1_validate_and_ingest_to_postgres():
@@ -30,7 +34,7 @@ def cookbook1_validate_and_ingest_to_postgres():
         table_name="customers", dataframe=df_customers
     )
 
-    print(f"{rows_inserted} new rows inserted.")
+    log.info(f"{rows_inserted} new rows inserted.")
 
 
 default_args = {
