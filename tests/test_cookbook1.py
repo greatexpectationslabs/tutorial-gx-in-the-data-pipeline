@@ -6,6 +6,7 @@ import time
 import great_expectations as gx
 import pandas as pd
 import pytest
+
 import tutorial_code as tutorial
 
 
@@ -162,11 +163,15 @@ def test_airflow_dag_trigger(wait_on_airflow_api_healthcheck):
     dag_run_id, _ = tutorial.airflow.trigger_airflow_dag(dag_id)
 
     dag_run_completed = tutorial.airflow.dag_run_completed(dag_id, dag_run_id)
+    dag_run_completion_checks = 1
 
     # Wait for the DAG to finish running before test continues.
     while not dag_run_completed:
-        time.sleep(10)
+        time.sleep(dag_run_completion_checks * 10)
         dag_run_completed = tutorial.airflow.dag_run_completed(dag_id, dag_run_id)
+        dag_run_completion_checks += 1
+        if dag_run_completion_checks == 4:
+            raise Exception(f"Test DAG is still running: {dag_id}")
 
     # Wait for DAG to run.
     time.sleep(10)
