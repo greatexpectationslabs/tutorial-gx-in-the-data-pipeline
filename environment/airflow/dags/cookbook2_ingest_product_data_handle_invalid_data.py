@@ -57,7 +57,7 @@ def cookbook2_validate_and_ingest_to_postgres_handle_invalid_data():
     )
 
     # If validation fails for product rows, automatically remove failing rows and write
-    # to error file. Write all valid rows to Postgres.
+    # to error file. Write all remaining valid rows to Postgres.
     if not products_validation_result["success"]:
         df_products_valid, df_products_invalid = (
             tutorial.cookbook2.separate_valid_and_invalid_product_rows(

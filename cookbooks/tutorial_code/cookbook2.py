@@ -88,6 +88,7 @@ def clean_product_data(
         "product_category_id",
         "product_subcategory_id",
     ]
+
     df_products = df_products[PRODUCT_RETAIN_COLUMNS]
 
     return df_products, df_product_categories, df_product_subcategories
