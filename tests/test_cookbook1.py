@@ -6,6 +6,7 @@ import time
 import great_expectations as gx
 import pandas as pd
 import pytest
+
 import tutorial_code as tutorial
 
 
@@ -158,11 +159,15 @@ def test_airflow_dag_trigger(wait_on_airflow_api_healthcheck):
     tutorial.db.drop_all_table_rows("customers")
     assert tutorial.db.get_table_row_count("customers") == 0
 
-    _, dag_run_state = tutorial.airflow.trigger_airflow_dag(
-        "cookbook1_validate_and_ingest_to_postgres"
-    )
+    dag_id = "cookbook1_validate_and_ingest_to_postgres"
+    dag_run_id, _ = tutorial.airflow.trigger_airflow_dag(dag_id)
 
-    assert str(dag_run_state) == "queued"
+    dag_run_completed = tutorial.airflow.dag_run_completed(dag_id, dag_run_id)
+
+    # Wait for the DAG to finish running before test continues.
+    while not dag_run_completed:
+        time.sleep(10)
+        dag_run_completed = tutorial.airflow.dag_run_completed(dag_id, dag_run_id)
 
     # Wait for DAG to run.
     time.sleep(10)

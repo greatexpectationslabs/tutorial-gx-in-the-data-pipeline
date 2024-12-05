@@ -1,8 +1,9 @@
 """Helper functions for tutorial notebooks to interact with Airflow."""
 
+import datetime
 import uuid
 import warnings
-from typing import Tuple
+from typing import Tuple, Union
 
 import airflow_client.client
 from airflow_client.client.api import dag_api, dag_run_api
@@ -49,3 +50,57 @@ def trigger_airflow_dag(dag_id: str) -> Tuple[str, str]:
             dag_run_state = api_response["state"]
 
         return dag_run_id["dag_run_id"], dag_run_state
+
+
+def get_airflow_dag_run_status(
+    dag_id: str, dag_run_id: str
+) -> Tuple[str, Union[datetime.datetime, None]]:
+    """Get the run status of a tutorial Airflow DAG.
+
+    Args:
+        dag_id: string identifier of the Airflow dag
+        dag_run_id: string identifier of the Airflow dag run
+
+    Returns:
+        Tuple containing (dag run status, dag run end datetime)
+    """
+    config = airflow_client.client.Configuration(
+        host=AIRFLOW_HOST, username="admin", password="gx"
+    )
+
+    with warnings.catch_warnings():
+        # Suppress DeprecationWarnings caused by airflow library code.
+        warnings.simplefilter("ignore", category=DeprecationWarning)
+
+        with airflow_client.client.ApiClient(config) as api_client:
+            dag_run_api_instance = dag_run_api.DAGRunApi(api_client)
+
+            try:
+                api_response = dag_run_api_instance.get_dag_run(
+                    dag_id=dag_id, dag_run_id=dag_run_id
+                )
+            except airflow_client.client.OpenApiException as e:
+                raise Exception(f"Error calling DAGRunApi->get_dag_run: {e}")
+
+            dag_run_status = api_response["state"]
+            dag_run_end_date = api_response["end_date"]
+
+            return dag_run_status, dag_run_end_date
+
+
+def dag_run_completed(dag_id: str, dag_run_id: str) -> bool:
+    """Returns whether DAG run has completed.
+
+    Args:
+        dag_id: string identifier of the Airflow dag
+        dag_run_id: string identifier of the Airflow dag run
+
+    Returns:
+        True if dag has completed running, False otherwise
+    """
+    dag_run_status, dag_run_end_date = get_airflow_dag_run_status(dag_id, dag_run_id)
+
+    if (dag_run_end_date is not None) and dag_run_status not in ["queued", "running"]:
+        return True
+    else:
+        return False

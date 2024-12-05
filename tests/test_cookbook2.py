@@ -6,6 +6,7 @@ from typing import Tuple
 import great_expectations as gx
 import pandas as pd
 import pytest
+
 import tutorial_code as tutorial
 
 
@@ -287,14 +288,15 @@ def test_airflow_dag_trigger(wait_on_airflow_api_healthcheck):
         tutorial.db.drop_all_table_rows(table_name)
         assert tutorial.db.get_table_row_count(table_name) == 0
 
-    _, dag_run_state = tutorial.airflow.trigger_airflow_dag(
-        "cookbook2_validate_and_ingest_to_postgres_handle_invalid_data"
-    )
+    dag_id = "cookbook2_validate_and_ingest_to_postgres_handle_invalid_data"
+    dag_run_id, _ = tutorial.airflow.trigger_airflow_dag(dag_id)
 
-    assert str(dag_run_state) == "queued"
+    dag_run_completed = tutorial.airflow.dag_run_completed(dag_id, dag_run_id)
 
-    # Wait for DAG to run.
-    time.sleep(20)
+    # Wait for the DAG to finish running before test continues.
+    while not dag_run_completed:
+        time.sleep(10)
+        dag_run_completed = tutorial.airflow.dag_run_completed(dag_id, dag_run_id)
 
     for table_name in expected_table_row_count.keys():
         assert (
