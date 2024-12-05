@@ -294,7 +294,7 @@ def test_airflow_dag_trigger(wait_on_airflow_api_healthcheck):
     assert str(dag_run_state) == "queued"
 
     # Wait for DAG to run.
-    time.sleep(10)
+    time.sleep(20)
 
     for table_name in expected_table_row_count.keys():
         assert (
