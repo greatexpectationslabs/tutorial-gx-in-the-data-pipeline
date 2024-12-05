@@ -1,10 +1,14 @@
 """Helper functions for Cookbook 2 notebook and DAG."""
 
+import logging
+import pathlib
 from typing import Tuple
 
 import great_expectations as gx
 import great_expectations.expectations as gxe
 import pandas as pd
+
+log = logging.getLogger("GX validation")
 
 DATA_SOURCE_NAME = "pandas"
 
@@ -353,3 +357,14 @@ def separate_valid_and_invalid_product_rows(
     ).reset_index(drop=True)
 
     return df_products_valid, df_products_invalid
+
+
+def write_invalid_rows_to_file(filepath: pathlib.Path, df: pd.DataFrame):
+    """Write invalid rows to an error file.
+
+    Args:
+        filepath: full filepath to write file to
+        df: pandas dataframe containing invalid rows
+    """
+    df.to_csv(filepath, index=False)
+    log.warning(f"{df.shape[0]} invalid rows written to error file.")

@@ -4,16 +4,21 @@ import os
 import pathlib
 
 import pandas as pd
-import tutorial_code as tutorial
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+
+import tutorial_code as tutorial
 
 log = logging.getLogger("GX validation")
 
 
+def get_airflow_home_dir() -> pathlib.Path:
+    return pathlib.Path(os.getenv("AIRFLOW_HOME"))
+
+
 def cookbook2_validate_and_handle_invalid_data():
 
-    DATA_DIR = pathlib.Path(os.getenv("AIRFLOW_HOME")) / "data"
+    DATA_DIR = get_airflow_home_dir() / "data"
 
     # Load and clean raw product data.
     df_products_raw = pd.read_csv(
@@ -63,13 +68,9 @@ def cookbook2_validate_and_handle_invalid_data():
                 df_products, products_validation_result
             )
         )
-
-        # df_products_invalid.to_csv(
-        #     DATA_DIR / "invalid_rows/bad_product_rows.csv", index=False
-        # )
-        # log.warning(
-        #     f"{df_products_invalid.shape[0]} invalid product rows written to error file."
-        # )
+        tutorial.cookbook2.write_invalid_rows_to_file(
+            DATA_DIR / "invalid_rows/bad_product_rows.csv", df_products_invalid
+        )
 
     else:
         df_products_valid = df_products

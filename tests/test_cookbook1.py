@@ -1,11 +1,14 @@
 """Tests for Cookbook1 functions."""
 
 import datetime
+import shutil
 import time
 
 import great_expectations as gx
 import pandas as pd
 import pytest
+
+import cookbooks.airflow_dags.cookbook1_ingest_customer_data as airflow_dag
 import tutorial_code as tutorial
 
 
@@ -150,28 +153,27 @@ def test_validate_customer_data_with_invalid_data(invalid_cleaned_customer_data)
     assert failed_expectations == ["expect_column_values_to_match_regex"]
 
 
-def test_airflow_dag_trigger(wait_on_airflow_api_healthcheck):
-    """Test Airflow DAG trigger runs without error."""
+def test_airflow_dag_trigger(tmp_path, monkeypatch):
+    """Test Airflow DAG code runs without error."""
 
-    wait_on_airflow_api_healthcheck
+    # Create tmp directories for test data.
+    (tmp_path / "data" / "raw").mkdir(parents=True)
+
+    # Write pipeline invalid row output to tmp directory.
+    def mock_get_airflow_home_dir():
+        return tmp_path
+
+    monkeypatch.setattr(airflow_dag, "get_airflow_home_dir", mock_get_airflow_home_dir)
+
+    # Add product data to tmp directory.
+    source_file = "/cookbooks/data/raw/customers.csv"
+    destination_directory = tmp_path / "data/raw"
+
+    shutil.copy(source_file, destination_directory)
 
     tutorial.db.drop_all_table_rows("customers")
     assert tutorial.db.get_table_row_count("customers") == 0
 
-    dag_id = "cookbook1_validate_and_ingest_to_postgres"
-    dag_run_id, _ = tutorial.airflow.trigger_airflow_dag(dag_id)
+    airflow_dag.cookbook1_validate_and_ingest_to_postgres()
 
-    dag_run_completed = tutorial.airflow.dag_run_completed(dag_id, dag_run_id)
-    dag_run_completion_checks = 1
-
-    # Wait for the DAG to finish running before test continues.
-    while not dag_run_completed:
-        time.sleep(dag_run_completion_checks * 10)
-        dag_run_completed = tutorial.airflow.dag_run_completed(dag_id, dag_run_id)
-        dag_run_completion_checks += 1
-        if dag_run_completion_checks == 4:
-            raise Exception(f"Test DAG is still running: {dag_id}")
-
-    # Wait for DAG to run.
-    time.sleep(10)
     assert tutorial.db.get_table_row_count("customers") == 15266

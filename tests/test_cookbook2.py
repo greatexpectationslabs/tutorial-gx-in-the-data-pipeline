@@ -1,11 +1,13 @@
 """Tests for Cookbook2 functions."""
 
-import time
+import shutil
 from typing import Tuple
 
 import great_expectations as gx
 import pandas as pd
 import pytest
+
+import cookbooks.airflow_dags.cookbook2_validate_and_handle_invalid_data as airflow_dag
 import tutorial_code as tutorial
 
 
@@ -272,10 +274,24 @@ def test_separate_valid_and_invalid_product_rows(
     assert sorted(list(df_invalid["product_id"])) == [1234, 1934, 2133]
 
 
-def test_airflow_dag_trigger(wait_on_airflow_api_healthcheck):
-    """Test Airflow DAG trigger runs without error."""
+def test_cookbook2_airflow_dag(tmp_path, monkeypatch):
+    """Test Airflow DAG code runs without error."""
 
-    wait_on_airflow_api_healthcheck
+    # Create tmp directories for test data.
+    (tmp_path / "data" / "raw").mkdir(parents=True)
+    (tmp_path / "data" / "invalid_rows").mkdir(parents=True)
+
+    # Write pipeline invalid row output to tmp directory.
+    def mock_get_airflow_home_dir():
+        return tmp_path
+
+    monkeypatch.setattr(airflow_dag, "get_airflow_home_dir", mock_get_airflow_home_dir)
+
+    # Add product data to tmp directory.
+    source_file = "/cookbooks/data/raw/products.csv"
+    destination_directory = tmp_path / "data/raw"
+
+    shutil.copy(source_file, destination_directory)
 
     expected_table_row_count = {
         "products": 2510,
@@ -287,29 +303,20 @@ def test_airflow_dag_trigger(wait_on_airflow_api_healthcheck):
         tutorial.db.drop_all_table_rows(table_name)
         assert tutorial.db.get_table_row_count(table_name) == 0
 
-    dag_id = "cookbook2_validate_and_handle_invalid_data"
-    dag_run_id, _ = tutorial.airflow.trigger_airflow_dag(dag_id)
+    airflow_dag.cookbook2_validate_and_handle_invalid_data()
 
-    dag_run_completed = tutorial.airflow.dag_run_completed(dag_id, dag_run_id)
-    dag_run_completion_checks = 1
+    for table_name in expected_table_row_count.keys():
+        assert (
+            tutorial.db.get_table_row_count(table_name)
+            == expected_table_row_count[table_name]
+        )
 
-    # Wait for the DAG to finish running before test continues.
-    while not dag_run_completed:
-        time.sleep(dag_run_completion_checks * 10)
-        dag_run_completed = tutorial.airflow.dag_run_completed(dag_id, dag_run_id)
-        dag_run_completion_checks += 1
-        if dag_run_completion_checks == 4:
-            raise Exception(f"Test DAG is still running: {dag_id}")
-
-    assert (
-        tutorial.db.get_table_row_count("product_category")
-        == expected_table_row_count["product_category"]
+    invalid_row_ids = sorted(
+        list(
+            pd.read_csv(tmp_path / "data/invalid_rows/bad_product_rows.csv")[
+                "product_id"
+            ]
+        )
     )
-    assert (
-        tutorial.db.get_table_row_count("product_subcategory")
-        == expected_table_row_count["product_subcategory"]
-    )
-    assert (
-        tutorial.db.get_table_row_count("products")
-        == expected_table_row_count["products"]
-    )
+    expected_invalid_row_ids = [14, 50, 919, 920, 921, 922, 975]
+    assert invalid_row_ids == expected_invalid_row_ids
