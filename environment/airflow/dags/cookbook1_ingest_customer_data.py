@@ -4,9 +4,10 @@ import os
 import pathlib
 
 import pandas as pd
-import tutorial_code as tutorial
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+
+import tutorial_code as tutorial
 
 log = logging.getLogger("GX validation")
 

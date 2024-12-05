@@ -4,14 +4,15 @@ import os
 import pathlib
 
 import pandas as pd
-import tutorial_code as tutorial
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+
+import tutorial_code as tutorial
 
 log = logging.getLogger("GX validation")
 
 
-def cookbook2_validate_and_ingest_to_postgres_handle_invalid_data():
+def cookbook2_validate_and_handle_invalid_data():
 
     DATA_DIR = pathlib.Path(os.getenv("AIRFLOW_HOME")) / "data"
 
@@ -64,12 +65,12 @@ def cookbook2_validate_and_ingest_to_postgres_handle_invalid_data():
             )
         )
 
-        df_products_invalid.to_csv(
-            DATA_DIR / "invalid_rows/bad_product_rows.csv", index=False
-        )
-        log.warning(
-            f"{df_products_invalid.shape[0]} invalid product rows written to error file."
-        )
+        # df_products_invalid.to_csv(
+        #     DATA_DIR / "invalid_rows/bad_product_rows.csv", index=False
+        # )
+        # log.warning(
+        #     f"{df_products_invalid.shape[0]} invalid product rows written to error file."
+        # )
 
     else:
         df_products_valid = df_products
@@ -88,15 +89,15 @@ default_args = {
 }
 
 gx_dag = DAG(
-    "cookbook2_validate_and_ingest_to_postgres_handle_invalid_data",
+    "cookbook2_validate_and_handle_invalid_data",
     default_args=default_args,
     schedule="0 0 * * *",
     catchup=False,
 )
 
 run_gx_task = PythonOperator(
-    task_id="cookbook2_validate_and_ingest_to_postgres_handle_invalid_data",
-    python_callable=cookbook2_validate_and_ingest_to_postgres_handle_invalid_data,
+    task_id="cookbook2_validate_and_handle_invalid_data",
+    python_callable=cookbook2_validate_and_handle_invalid_data,
     dag=gx_dag,
 )
 
