@@ -6,6 +6,7 @@ from typing import Tuple
 import great_expectations as gx
 import pandas as pd
 import pytest
+
 import tutorial_code as tutorial
 
 
@@ -301,8 +302,15 @@ def test_airflow_dag_trigger(wait_on_airflow_api_healthcheck):
         if dag_run_completion_checks == 4:
             raise Exception(f"Test DAG is still running: {dag_id}")
 
-    for table_name in expected_table_row_count.keys():
-        assert (
-            tutorial.db.get_table_row_count(table_name)
-            == expected_table_row_count[table_name]
-        )
+    assert (
+        tutorial.db.get_table_row_count("product_category")
+        == expected_table_row_count["product_category"]
+    )
+    assert (
+        tutorial.db.get_table_row_count("product_subcategory")
+        == expected_table_row_count["product_subcategory"]
+    )
+    assert (
+        tutorial.db.get_table_row_count("products")
+        == expected_table_row_count["products"]
+    )
