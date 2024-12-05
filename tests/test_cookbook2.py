@@ -3,11 +3,10 @@
 import shutil
 from typing import Tuple
 
+import cookbooks.airflow_dags.cookbook2_validate_and_handle_invalid_data as airflow_dag
 import great_expectations as gx
 import pandas as pd
 import pytest
-
-import cookbooks.airflow_dags.cookbook2_validate_and_handle_invalid_data as airflow_dag
 import tutorial_code as tutorial
 
 
