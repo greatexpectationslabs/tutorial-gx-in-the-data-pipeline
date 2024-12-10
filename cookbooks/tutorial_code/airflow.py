@@ -1,6 +1,7 @@
 """Helper functions for tutorial notebooks to interact with Airflow."""
 
 import datetime
+import time
 import uuid
 import warnings
 from typing import Tuple, Union
@@ -104,3 +105,22 @@ def dag_run_completed(dag_id: str, dag_run_id: str) -> bool:
         return True
     else:
         return False
+
+
+def trigger_airflow_dag_and_wait_for_run(dag_id: str) -> None:
+    """Trigger a tutorial Airflow DAG and wait for it to run.
+
+    Args:
+        dag_id: string identifier of the Airflow dag
+    """
+    dag_run_id, _ = trigger_airflow_dag(dag_id)
+
+    dag_run_finished = dag_run_completed(dag_id, dag_run_id)
+    dag_run_completion_checks = 1
+
+    while not dag_run_finished:
+        time.sleep(dag_run_completion_checks * 10)
+        dag_run_finished = dag_run_completed(dag_id, dag_run_id)
+        dag_run_completion_checks += 1
+        if dag_run_completion_checks == 4:
+            raise Exception(f"Test DAG is still running: {dag_id}")
