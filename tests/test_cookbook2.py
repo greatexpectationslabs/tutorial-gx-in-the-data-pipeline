@@ -278,7 +278,7 @@ def test_cookbook2_airflow_dag(tmp_path, monkeypatch):
 
     # Create tmp directories for test data.
     (tmp_path / "data" / "raw").mkdir(parents=True)
-    (tmp_path / "data" / "invalid_rows").mkdir(parents=True)
+    (tmp_path / "airflow_pipeline_output").mkdir(parents=True)
 
     # Write pipeline invalid row output to tmp directory.
     def mock_get_airflow_home_dir():
@@ -312,7 +312,7 @@ def test_cookbook2_airflow_dag(tmp_path, monkeypatch):
 
     invalid_row_ids = sorted(
         list(
-            pd.read_csv(tmp_path / "data/invalid_rows/bad_product_rows.csv")[
+            pd.read_csv(tmp_path / "airflow_pipeline_output/cookbook2_invalid_product_rows.csv")[
                 "product_id"
             ]
         )

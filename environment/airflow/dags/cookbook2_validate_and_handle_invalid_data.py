@@ -17,11 +17,12 @@ def get_airflow_home_dir() -> pathlib.Path:
 
 def cookbook2_validate_and_handle_invalid_data():
 
-    DATA_DIR = get_airflow_home_dir() / "data"
+    RAW_DATA_DIR = get_airflow_home_dir() / "data/raw"
+    OUTPUT_DATA_DIR = get_airflow_home_dir() / "airflow_pipeline_output"
 
     # Load and clean raw product data.
     df_products_raw = pd.read_csv(
-        DATA_DIR / "raw/products.csv", encoding="unicode_escape"
+        RAW_DATA_DIR / "products.csv", encoding="unicode_escape"
     )
 
     df_products, df_product_categories, df_product_subcategories = (
@@ -68,7 +69,7 @@ def cookbook2_validate_and_handle_invalid_data():
             )
         )
         tutorial.cookbook2.write_invalid_rows_to_file(
-            DATA_DIR / "invalid_rows/bad_product_rows.csv", df_products_invalid
+            OUTPUT_DATA_DIR / "cookbook2_invalid_product_rows.csv", df_products_invalid
         )
 
     else:

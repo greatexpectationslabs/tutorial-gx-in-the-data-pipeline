@@ -36,6 +36,7 @@ services:
       - ./environment/airflow/airflow.cfg:/usr/local/airflow/airflow.cfg
       - ./environment/airflow/init_airflow.sh:/usr/local/airflow/init_airflow.sh
       - ./cookbooks/data:/usr/local/airflow/data
+      - ./cookbooks/airflow_pipeline_output:/usr/local/airflow/airflow_pipeline_output
     depends_on:
       - postgres
     entrypoint: "/usr/local/airflow/init_airflow.sh"
