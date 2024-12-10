@@ -312,9 +312,9 @@ def test_cookbook2_airflow_dag(tmp_path, monkeypatch):
 
     invalid_row_ids = sorted(
         list(
-            pd.read_csv(tmp_path / "airflow_pipeline_output/cookbook2_invalid_product_rows.csv")[
-                "product_id"
-            ]
+            pd.read_csv(
+                tmp_path / "airflow_pipeline_output/cookbook2_invalid_product_rows.csv"
+            )["product_id"]
         )
     )
     expected_invalid_row_ids = [14, 50, 919, 920, 921, 922, 975]
