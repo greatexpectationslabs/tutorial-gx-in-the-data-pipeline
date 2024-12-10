@@ -35,7 +35,7 @@ services:
       - ./cookbooks/tutorial_code:/usr/local/airflow/dags/tutorial_code
       - ./environment/airflow/airflow.cfg:/usr/local/airflow/airflow.cfg
       - ./environment/airflow/init_airflow.sh:/usr/local/airflow/init_airflow.sh
-      - ./data:/usr/local/airflow/data
+      - ./cookbooks/data:/usr/local/airflow/data
     depends_on:
       - postgres
     entrypoint: "/usr/local/airflow/init_airflow.sh"
@@ -62,7 +62,6 @@ services:
       - 8888:8888
     volumes:
       - ./cookbooks:/cookbooks
-      - ./data:/cookbooks/data
       - ./environment/airflow/dags:/cookbooks/airflow_dags
       - ./cookbooks/tutorial_code:/tutorial_code
       - ./tests:/tests
