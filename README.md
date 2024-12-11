@@ -57,7 +57,7 @@ Tutorials are presented as "cookbooks" (JupyterLab notebooks) that can be run in
 Cookbooks will be progressively added to this repo; the table below lists the current and planned cookbook topics.
 
 > [!IMPORTANT]
-> Start the tutorial environment with Docker compose before accessing the path to the running tutorial cookbook. The *Path to running tutorial cookbook* cell provides a localhost link to the running notebook that works when you are actively running the tutorial Docker compose instance.
+> **Start the tutorial environment with Docker compose before accessing the path to the running tutorial cookbook.** The *Path to running tutorial cookbook* cell provides a localhost link to the running notebook that works when you are actively running the tutorial Docker compose instance.
 >
 > If the tutorial environment is not running when you try to access the cookbook, you will receive a connection error.
 
