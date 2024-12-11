@@ -164,3 +164,7 @@ cython_debug/
 # Temp and trash files in cookbooks/
 cookbooks/Untitled*.ipynb
 cookbooks/.Trash*
+*.DS_Store
+
+# Don't capture tutorial output artifacts.
+cookbooks/airflow_pipeline_output/

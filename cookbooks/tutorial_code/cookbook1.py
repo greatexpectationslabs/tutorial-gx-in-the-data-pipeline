@@ -52,7 +52,7 @@ def clean_customer_data(df_original: pd.DataFrame) -> pd.DataFrame:
 def validate_customer_data(
     df_customers: pd.DataFrame,
 ) -> gx.core.expectation_validation_result.ExpectationSuiteValidationResult:
-    """Run GX data validation on sample customer data for Cookbook 1 and DAG, and return ValidationResult object."""
+    """Run GX data validation on sample customer data for Cookbook 1 and DAG, and return Validation Result."""
 
     # Get GX context.
     context = gx.get_context()

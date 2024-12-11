@@ -57,14 +57,14 @@ Tutorials are presented as "cookbooks" (JupyterLab notebooks) that can be run in
 Cookbooks will be progressively added to this repo; the table below lists the current and planned cookbook topics.
 
 > [!IMPORTANT]
-> Start the tutorial environment with Docker compose before accessing the path to the running tutorial cookbook. The *Path to running tutorial cookbook* cell provides a localhost link to the running notebook that works when you are actively running the tutorial Docker compose instance.
+> **Start the tutorial environment with Docker compose before accessing the path to the running tutorial cookbook.** The *Path to running tutorial cookbook* cell provides a localhost link to the running notebook that works when you are actively running the tutorial Docker compose instance.
 >
 > If the tutorial environment is not running when you try to access the cookbook, you will receive a connection error.
 
 | No. | Cookbook topic | Cookbook status | Path to running tutorial cookbook | Path to static render of cookbook |
 | :--: | :-- | :-- | :-- | :-- |
-| 1 | Data validation during ingestion of data into database (happy path) | Available | [Click to open and run Cookbook 1](http://localhost:8888/lab/tree/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) | [View  Cookbook 1 on GitHub](cookbooks/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) |
-| 2 | Data validation during ingestion of data into database (pipeline fail + then take action) | Coming soon | | |
+| 1 | Data validation during ingestion of data into database (happy path) | Available | [Click to open and run Cookbook 1](http://localhost:8888/lab/tree/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) | [View Cookbook 1 on GitHub](cookbooks/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) |
+| 2 | Data validation during ingestion of data into database (pipeline fail + then take action) | Available | [Click to open and run Cookbook 2](http://localhost:8888/lab/tree/Cookbook_2_Validate_data_during_ingestion_take_action_on_failures.ipynb) | [View Cookbook 2 on GitHub](cookbooks/Cookbook_2_Validate_data_during_ingestion_take_action_on_failures.ipynb) |
 | 3 | Data validation of Postgres database tables \* | Coming soon | | |
  | 4 | Data validation and automated handling in a medallion data pipeline \* | Coming soon | | |
 

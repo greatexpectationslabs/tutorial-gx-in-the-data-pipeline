@@ -1,4 +1,5 @@
 import datetime
+import logging
 import os
 import pathlib
 
@@ -7,10 +8,16 @@ import tutorial_code as tutorial
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
+log = logging.getLogger("GX validation")
+
+
+def get_airflow_home_dir() -> pathlib.Path:
+    return pathlib.Path(os.getenv("AIRFLOW_HOME"))
+
 
 def cookbook1_validate_and_ingest_to_postgres():
 
-    DATA_DIR = pathlib.Path(os.getenv("AIRFLOW_HOME")) / "data/raw"
+    DATA_DIR = get_airflow_home_dir() / "data" / "raw"
 
     # Load and clean raw customer data.
     df_customers_raw = pd.read_csv(
@@ -30,7 +37,7 @@ def cookbook1_validate_and_ingest_to_postgres():
         table_name="customers", dataframe=df_customers
     )
 
-    print(f"{rows_inserted} new rows inserted.")
+    log.info(f"{rows_inserted} new rows inserted.")
 
 
 default_args = {
