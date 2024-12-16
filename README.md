@@ -37,7 +37,7 @@ If you are an experienced GX user, these tutorials will provide code examples of
 > [!IMPORTANT]
 > The first time that you start the Docker compose instance, the underlying Docker images need to be built. This process can take several minutes.
 >
-> When environment is ready, you will see the following output in the terminal:
+> **When environment is ready, you will see the following output in the terminal:**
 >
 >```
 >✔ Network tutorial-gx-in-the-data-pipeline_gxnet         Created
