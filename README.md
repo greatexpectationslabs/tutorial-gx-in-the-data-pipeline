@@ -34,8 +34,17 @@ If you are an experienced GX user, these tutorials will provide code examples of
    docker compose up --build --detach --wait
    ```
 
-> [!NOTE]
+> [!IMPORTANT]
 > The first time that you start the Docker compose instance, the underlying Docker images need to be built. This process can take several minutes.
+>
+> **When environment is ready, you will see the following output in the terminal:**
+>
+>```
+>✔ Network tutorial-gx-in-the-data-pipeline_gxnet         Created
+>✔ Container tutorial-gx-in-the-data-pipeline-postgres    Healthy
+>✔ Container tutorial-gx-in-the-data-pipeline-airflow     Healthy
+>✔ Container tutorial-gx-in-the-data-pipeline-jupyterlab  Healthy
+>```
 
 4. Access the JupyterLab (to run tutorial cookbooks) and Airflow (to run data pipelines) applications using a web browser.
    * JupyterLab: `http://localhost:8888/lab`
