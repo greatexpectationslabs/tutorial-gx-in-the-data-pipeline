@@ -84,7 +84,7 @@ Cookbooks will be progressively added to this repo; the table below lists the cu
 | :--: | :-- | :-- | :-- | :-- |
 | 1 | Data validation during ingestion of data into database (happy path) | Available | [Click to open and run Cookbook 1](http://localhost:8888/lab/tree/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) | [View Cookbook 1 on GitHub](cookbooks/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) |
 | 2 | Data validation during ingestion of data into database (pipeline fail + then take action) | Available | [Click to open and run Cookbook 2](http://localhost:8888/lab/tree/Cookbook_2_Validate_data_during_ingestion_take_action_on_failures.ipynb) | [View Cookbook 2 on GitHub](cookbooks/Cookbook_2_Validate_data_during_ingestion_take_action_on_failures.ipynb) |
-| 3 | Data validation with GX Core and GX Cloud \* | Available | [Click to open and run Cookbook 3](http://localhost:8888/lab/tree/Cookbook_3_Validate_data_with_GX_Core_and_Cloud.ipynb) | [View Cookbook 2 on GitHub](cookbooks/Cookbook_3_Validate_data_with_GX_Core_and_Cloud.ipynb) |
+| 3 | Data validation with GX Core and GX Cloud \* | Available | [Click to open and run Cookbook 3](http://localhost:8888/lab/tree/Cookbook_3_Validate_data_with_GX_Core_and_Cloud.ipynb) | [View Cookbook 3 on GitHub](cookbooks/Cookbook_3_Validate_data_with_GX_Core_and_Cloud.ipynb) |
  | 4 | Data validation and automated handling in a medallion data pipeline \* | Coming soon | | |
 
 <sup>\* Cookbook execution requires GX Cloud organization credentials. Sign up for a free GX Cloud account [here](https://hubs.ly/Q02TyCZS0).</sup>
