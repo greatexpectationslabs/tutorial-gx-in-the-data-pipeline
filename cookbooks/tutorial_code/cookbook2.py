@@ -300,7 +300,7 @@ def validate_product_data(
     """
 
     # Get GX context.
-    context = gx.get_context()
+    context = gx.get_context(mode="ephemeral")
 
     # Create the Data Source.
     data_source = context.data_sources.add_pandas("pandas")

@@ -2,7 +2,6 @@
 
 import datetime
 import shutil
-import time
 
 import cookbooks.airflow_dags.cookbook1_ingest_customer_data as airflow_dag
 import great_expectations as gx

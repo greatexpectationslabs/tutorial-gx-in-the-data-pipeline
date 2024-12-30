@@ -55,7 +55,7 @@ def validate_customer_data(
     """Run GX data validation on sample customer data for Cookbook 1 and DAG, and return Validation Result."""
 
     # Get GX context.
-    context = gx.get_context()
+    context = gx.get_context(mode="ephemeral")
 
     # Create Data Source, Data Asset, Batch Definition, and get Batch.
     data_source = context.data_sources.add_pandas("pandas")
