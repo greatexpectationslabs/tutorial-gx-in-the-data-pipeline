@@ -39,11 +39,10 @@ def clean_customer_data(df_original: pd.DataFrame) -> pd.DataFrame:
     }
 
     df["country"] = df["country"].apply(lambda x: COUNTRY_NAME_TO_CODE[x])
-    df["dob"] = pd.to_datetime(df["dob"])
     df["city"] = df["city"].apply(lambda x: x.title())
 
     # Format final dataframe.
-    RETAIN_COLUMNS = ["customer_id", "name", "dob", "city", "state", "zip", "country"]
+    RETAIN_COLUMNS = ["customer_id", "name", "city", "state", "zip", "country"]
     df = df[RETAIN_COLUMNS]
 
     return df
@@ -75,7 +74,6 @@ def validate_customer_data(
             column_list=[
                 "customer_id",
                 "name",
-                "dob",
                 "city",
                 "state",
                 "zip",
@@ -87,7 +85,6 @@ def validate_customer_data(
             gxe.ExpectColumnValuesToBeOfType(column=x, type_="str")
             for x in ["name", "city", "state", "zip"]
         ],
-        gxe.ExpectColumnValuesToMatchRegex(column="dob", regex=r"^\d{4}-\d{2}-\d{2}$"),
         gxe.ExpectColumnValuesToBeInSet(
             column="country", value_set=["AU", "CA", "DE", "FR", "GB", "IT", "NL", "US"]
         ),

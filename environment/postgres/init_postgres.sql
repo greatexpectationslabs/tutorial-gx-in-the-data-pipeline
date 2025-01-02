@@ -22,7 +22,6 @@ end $$;
 create table public.customers (
     customer_id bigint primary key,
     name text,
-    dob date,
     city text,
     state text,
     zip text,
