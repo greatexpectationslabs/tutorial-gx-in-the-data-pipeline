@@ -1,4 +1,4 @@
-"""Helper functions for tutorial notebooks and DAGs to interact with the postgres database."""
+"""Helper functions for tutorial notebooks and DAGs to interact with Postgres."""
 
 from typing import Dict, List
 
@@ -9,10 +9,17 @@ TUTORIAL_POSTGRES_CONNECTION_STRING = (
     "postgresql://gx_user:gx_user_password@postgres:5432/gx"
 )
 
+GX_PUBLIC_POSTGRES_CONNECTION_STRING = "postgresql+psycopg2://try_gx:try_gx@postgres.workshops.greatexpectations.io/gx_in_the_data_pipeline"
+
 
 def get_local_postgres_engine() -> sqlalchemy.engine.Engine:
     """Return a sqlalchemy Engine for the tutorial local postgres database."""
     return sqlalchemy.create_engine(TUTORIAL_POSTGRES_CONNECTION_STRING)
+
+
+def get_cloud_postgres_engine() -> sqlalchemy.engine.Engine:
+    """Return a sqlalchemy Engine for the GX public postgres database."""
+    return sqlalchemy.create_engine(GX_PUBLIC_POSTGRES_CONNECTION_STRING)
 
 
 def insert_ignore_dataframe_to_postgres(
