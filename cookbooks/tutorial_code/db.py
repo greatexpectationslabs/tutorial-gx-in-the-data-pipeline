@@ -17,6 +17,11 @@ def get_local_postgres_engine() -> sqlalchemy.engine.Engine:
     return sqlalchemy.create_engine(TUTORIAL_POSTGRES_CONNECTION_STRING)
 
 
+def get_gx_postgres_connection_string() -> str:
+    """Return the connection string for the GX public Postgres instance used for the tutorial."""
+    return GX_PUBLIC_POSTGRES_CONNECTION_STRING
+
+
 def get_cloud_postgres_engine() -> sqlalchemy.engine.Engine:
     """Return a sqlalchemy Engine for the GX public postgres database."""
     return sqlalchemy.create_engine(GX_PUBLIC_POSTGRES_CONNECTION_STRING)

@@ -18,7 +18,7 @@ If you are an experienced GX user, these tutorials will provide code examples of
 
 * Git: You use Git to clone this repository and access the contents locally. Download Git [here](https://git-scm.com/downloads).
 
-* GX Cloud [organization id and access token](https://docs.greatexpectations.io/docs/cloud/connect/connect_python#get-your-user-access-token-and-organization-id): Cookbook 3 and Cookbook 4 use GX Cloud to store and visualize data validation results. Sign up for a free GX Cloud account [here](https://hubs.ly/Q02TyCZS0).
+* GX Cloud [organization id and access token](https://docs.greatexpectations.io/docs/cloud/connect/connect_python#get-your-user-access-token-and-organization-id): Cookbook 3 uses GX Cloud to store and visualize data validation results. Sign up for a free GX Cloud account [here](https://hubs.ly/Q02TyCZS0).
 
 
 ## Quickstart
@@ -32,14 +32,14 @@ If you are an experienced GX user, these tutorials will provide code examples of
    cd tutorial-gx-in-the-data-pipeline
    ```
 
-3. Start the tutorial environment using Docker compose. **If you are running Cookbook 3 or 4, supply your GX Cloud credentials.**
+3. Start the tutorial environment using Docker compose. **If you are running Cookbook 3, supply your GX Cloud credentials.**
 
    * To run the environment for Cookbooks 1 or 2:
       ```
       docker compose up --build --detach --wait
       ```
 
-   * To run the environment for Cookbooks 1, 2, 3, or 4, replace `<my-gx-cloud-org-id>` and `<my-gx-cloud-access-token>` with your GX Cloud organization id and access token values, respectively:
+   * To run the environment for Cookbooks 1, 2, or 3, replace `<my-gx-cloud-org-id>` and `<my-gx-cloud-access-token>` with your GX Cloud organization id and access token values, respectively:
       ```
       GX_CLOUD_ORGANIZATION_ID="<my-gx-cloud-org-id>" GX_CLOUD_ACCESS_TOKEN="<my-gx-cloud-access-token>" docker compose up --build --detach --wait
       ```
@@ -85,7 +85,6 @@ Cookbooks will be progressively added to this repo; the table below lists the cu
 | 1 | Data validation during ingestion of data into database (happy path) | Available | [Click to open and run Cookbook 1](http://localhost:8888/lab/tree/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) | [View Cookbook 1 on GitHub](cookbooks/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) |
 | 2 | Data validation during ingestion of data into database (pipeline fail + then take action) | Available | [Click to open and run Cookbook 2](http://localhost:8888/lab/tree/Cookbook_2_Validate_data_during_ingestion_take_action_on_failures.ipynb) | [View Cookbook 2 on GitHub](cookbooks/Cookbook_2_Validate_data_during_ingestion_take_action_on_failures.ipynb) |
 | 3 | Data validation with GX Core and GX Cloud \* | Available | [Click to open and run Cookbook 3](http://localhost:8888/lab/tree/Cookbook_3_Validate_data_with_GX_Core_and_Cloud.ipynb) | [View Cookbook 3 on GitHub](cookbooks/Cookbook_3_Validate_data_with_GX_Core_and_Cloud.ipynb) |
- | 4 | Data validation and automated handling in a medallion data pipeline \* | Coming soon | | |
 
 <sup>\* Cookbook execution requires GX Cloud organization credentials. Sign up for a free GX Cloud account [here](https://hubs.ly/Q02TyCZS0).</sup>
 

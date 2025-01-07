@@ -1,3 +1,4 @@
+altair==4.2.2
 apache-airflow==2.10.1
 apache-airflow-client==2.10.0
 black[jupyter]==24.8.0

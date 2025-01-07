@@ -19,7 +19,7 @@ jobs:
     - name: Docker compose up
       run: |
         echo ---Starting compose setup---
-        docker compose up --build --detach --wait --wait-timeout 120
+        GX_CLOUD_ORGANIZATION_ID=${GX_CLOUD_ORGANIZATION_ID} GX_CLOUD_ACCESS_TOKEN=${GX_CLOUD_ACCESS_TOKEN} docker compose up --build --detach --wait --wait-timeout 120
         echo ---Compose is running---
 
     - name: Run tutorial integration tests
@@ -38,5 +38,5 @@ jobs:
       if: success() || failure()
       run: |
         echo ---Spinning down compose---
-        docker compose down --volumes
+        GX_CLOUD_ORGANIZATION_ID=${GX_CLOUD_ORGANIZATION_ID} GX_CLOUD_ACCESS_TOKEN=${GX_CLOUD_ACCESS_TOKEN} docker compose down --volumes
         echo ---Compose is down---
