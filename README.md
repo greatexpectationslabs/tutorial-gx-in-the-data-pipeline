@@ -1,9 +1,11 @@
 # tutorial-gx-in-the-data-pipeline
-This repo hosts hands-on tutorials that guide you through working examples of GX data validation in an Airflow pipeline.
+This repo hosts hands-on tutorials that guide you through working examples of GX data validation in a data pipeline.
 
-If you are new to GX, these tutorials will introduce you to GX concepts and guide you through creating GX data validation workflows that can be triggered and run using Airflow.
+While Airflow is used as the data pipeline orchestrator for the tutorials, these examples are meant to show how GX can be integrated into any orchestrator that supports Python code.
 
-If you are an experienced GX user, these tutorials will provide code examples of GX and Airflow integration that can be used as a source of best practices and techniques that can enhance your current data validation pipeline implementations.
+If you are new to GX, these tutorials will introduce you to GX concepts and guide you through creating GX data validation workflows that can be triggered and run using a Python-enabled orchestrator.
+
+If you are an experienced GX user, these tutorials will provide code examples of GX and orchestrator integration that can be used as a source of best practices and techniques that can enhance your current data validation pipeline implementations.
 
 ## README table of contents
 1. [Prerequisites](#prerequisites)
