@@ -82,11 +82,11 @@ Cookbooks will be progressively added to this repo; the table below lists the cu
 >
 > If the tutorial environment is not running when you try to access the cookbook, you will receive a connection error.
 
-| No. | Cookbook topic | Cookbook status | Path to running tutorial cookbook | Path to static render of cookbook |
-| :--: | :-- | :-- | :-- | :-- |
-| 1 | Data validation during ingestion of data into database (happy path) | Available | [Click to open and run Cookbook 1](http://localhost:8888/lab/tree/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) | [View Cookbook 1 on GitHub](cookbooks/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) |
-| 2 | Data validation during ingestion of data into database (pipeline fail + then take action) | Available | [Click to open and run Cookbook 2](http://localhost:8888/lab/tree/Cookbook_2_Validate_data_during_ingestion_take_action_on_failures.ipynb) | [View Cookbook 2 on GitHub](cookbooks/Cookbook_2_Validate_data_during_ingestion_take_action_on_failures.ipynb) |
-| 3 | Data validation with GX Core and GX Cloud \* | Available | [Click to open and run Cookbook 3](http://localhost:8888/lab/tree/Cookbook_3_Validate_data_with_GX_Core_and_Cloud.ipynb) | [View Cookbook 3 on GitHub](cookbooks/Cookbook_3_Validate_data_with_GX_Core_and_Cloud.ipynb) |
+| No. | Cookbook topic | Path to running tutorial cookbook | Path to static render of cookbook |
+| :--: | :-- | :-- | :-- |
+| 1 | Data validation during ingestion of data into database (happy path) | [Click to open and run Cookbook 1](http://localhost:8888/lab/tree/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) | [View Cookbook 1 on GitHub](cookbooks/Cookbook_1_Validate_data_during_ingestion_happy_path.ipynb) |
+| 2 | Data validation during ingestion of data into database (pipeline fail + then take action) | [Click to open and run Cookbook 2](http://localhost:8888/lab/tree/Cookbook_2_Validate_data_during_ingestion_take_action_on_failures.ipynb) | [View Cookbook 2 on GitHub](cookbooks/Cookbook_2_Validate_data_during_ingestion_take_action_on_failures.ipynb) |
+| 3 | Data validation with GX Core and GX Cloud \* | [Click to open and run Cookbook 3](http://localhost:8888/lab/tree/Cookbook_3_Validate_data_with_GX_Core_and_Cloud.ipynb) | [View Cookbook 3 on GitHub](cookbooks/Cookbook_3_Validate_data_with_GX_Core_and_Cloud.ipynb) |
 
 <sup>\* Cookbook execution requires GX Cloud organization credentials. Sign up for a free GX Cloud account [here](https://hubs.ly/Q02TyCZS0).</sup>
 
@@ -99,7 +99,7 @@ Tutorials are hosted and executed within a containerized environment that is run
 
 * **Postgres**. The containerized Postgres database hosts the sample data used by the tutorial cookbooks and pipelines.
 
-Cookbooks that feature GX Cloud-based data validation workflows connect to your GX Cloud organization.
+Cookbook 3 features GX Cloud-based data validation workflow that connects to your GX Cloud organization.
 
 ## Tutorial data
 
