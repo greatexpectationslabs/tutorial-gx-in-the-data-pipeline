@@ -1,7 +1,7 @@
 import datetime
 import logging
-import great_expectations as gx
 
+import great_expectations as gx
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
