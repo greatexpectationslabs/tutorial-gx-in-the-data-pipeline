@@ -13,6 +13,7 @@ If you are an experienced GX user, these tutorials will provide code examples of
 1. [Cookbooks](#cookbooks)
 1. [Tutorial environment](#tutorial-environment)
 1. [Tutorial data](#tutorial-data)
+1. [Troubleshooting](#troubleshooting)
 1. [Additional resources](#additional-resources)
 
 ## Prerequisites
@@ -107,6 +108,30 @@ The data used in the tutorials is based on the [Global Electronics Retailers
 dataset](https://www.kaggle.com/datasets/bhavikjikadara/global-electronics-retailers/data), available on Kaggle at the time of repo creation.
 
 This dataset is used under the Creative Commons Attribution 4.0 International License. Appropriate credit is given to Bhavik Jikadara. The dataset has been modified to suit the requirements of this project. For more information about this license, please visit the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+## Troubleshooting
+
+This section provides guidance on how to resolve potential errors and unexpected behavior when running the tutorial.
+
+### Docker compose errors
+If you receive unexpected errors when running `docker compose up`, or do not get healthy containers, you can try recreating the tutorial Docker containers using the `--force-recreate` argument.
+```
+docker compose up --build --force-recreate --detach --wait
+```
+
+### GX Cloud environment variables warning
+The tutorial Docker compose is defined to capture `GX_CLOUD_ORGANIZATION_ID` and `GX_CLOUD_ACCESS_TOKEN` environment variables to support Cookbook 3. If these variables are not provided when running `docker compose up`, you will see the following warnings:
+
+```
+WARN[0000] The "GX_CLOUD_ORGANIZATION_ID" variable is not set. Defaulting to a blank string.
+WARN[0000] The "GX_CLOUD_ACCESS_TOKEN" variable is not set. Defaulting to a blank string.
+WARN[0000] The "GX_CLOUD_ORGANIZATION_ID" variable is not set. Defaulting to a blank string.
+WARN[0000] The "GX_CLOUD_ACCESS_TOKEN" variable is not set. Defaulting to a blank string.
+```
+
+You can safely ignore the these warnings if:
+* You are not trying to run Cookbook 3.
+* You are running `docker compose down --volumes` to stop the running Docker compose.
 
 ## Additional resources
 
