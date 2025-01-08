@@ -120,7 +120,7 @@ docker compose up --build --force-recreate --detach --wait
 ```
 
 ### GX Cloud environment variables warning
-The tutorial Docker compose is defined to capture `GX_CLOUD_ORGANIZATION_ID` and `GX_CLOUD_ACCESS_TOKEN` environment variables to support Cookbook 3. If these variables are not provided when running `docker compose up`, you will see the following warnings:
+The tutorial Docker compose `docker-compose.yaml` is defined to capture `GX_CLOUD_ORGANIZATION_ID` and `GX_CLOUD_ACCESS_TOKEN` environment variables to support Cookbook 3. If these variables are not provided when running `docker compose up`, you will see the following warnings:
 
 ```
 WARN[0000] The "GX_CLOUD_ORGANIZATION_ID" variable is not set. Defaulting to a blank string.
