@@ -44,7 +44,9 @@ If you are an experienced GX user, these tutorials will provide code examples of
 
    * To run the environment for Cookbooks 1, 2, or 3, replace `<my-gx-cloud-org-id>` and `<my-gx-cloud-access-token>` with your GX Cloud organization id and access token values, respectively:
       ```
-      GX_CLOUD_ORGANIZATION_ID="<my-gx-cloud-org-id>" GX_CLOUD_ACCESS_TOKEN="<my-gx-cloud-access-token>" docker compose up --build --detach --wait
+      export GX_CLOUD_ORGANIZATION_ID="<my-gx-cloud-org-id>"
+      export GX_CLOUD_ACCESS_TOKEN="<my-gx-cloud-access-token>"
+      docker compose up --build --detach --wait
       ```
 
 > [!IMPORTANT]
