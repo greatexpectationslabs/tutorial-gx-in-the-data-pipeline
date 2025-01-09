@@ -260,7 +260,7 @@ def test_separate_valid_and_invalid_product_rows(
         [df_products_valid, df_products_invalid], axis=0
     ).reset_index(drop=True)
 
-    context = gx.get_context()
+    context = gx.get_context(mode="ephemeral")
     context.data_sources.add_pandas("pandas")
 
     validation_result = tutorial.cookbook2._validate_products(context, df_products)

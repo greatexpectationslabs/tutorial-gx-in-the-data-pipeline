@@ -17,9 +17,12 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Docker compose up
+      env:
+        GX_CLOUD_ORGANIZATION_ID: ${{ secrets.GX_CLOUD_ORGANIZATION_ID }}
+        GX_CLOUD_ACCESS_TOKEN: ${{ secrets.GX_CLOUD_ACCESS_TOKEN }}
       run: |
         echo ---Starting compose setup---
-        docker compose up --build --detach --wait --wait-timeout 120
+        GX_CLOUD_ORGANIZATION_ID=${GX_CLOUD_ORGANIZATION_ID} GX_CLOUD_ACCESS_TOKEN=${GX_CLOUD_ACCESS_TOKEN} docker compose up --build --detach --wait --wait-timeout 120
         echo ---Compose is running---
 
     - name: Run tutorial integration tests
@@ -36,7 +39,10 @@ jobs:
 
     - name: Docker compose down
       if: success() || failure()
+      env:
+        GX_CLOUD_ORGANIZATION_ID: ${{ secrets.GX_CLOUD_ORGANIZATION_ID }}
+        GX_CLOUD_ACCESS_TOKEN: ${{ secrets.GX_CLOUD_ACCESS_TOKEN }}
       run: |
         echo ---Spinning down compose---
-        docker compose down --volumes
+        GX_CLOUD_ORGANIZATION_ID=${GX_CLOUD_ORGANIZATION_ID} GX_CLOUD_ACCESS_TOKEN=${GX_CLOUD_ACCESS_TOKEN} docker compose down --volumes
         echo ---Compose is down---

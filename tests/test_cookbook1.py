@@ -2,7 +2,6 @@
 
 import datetime
 import shutil
-import time
 
 import cookbooks.airflow_dags.cookbook1_ingest_customer_data as airflow_dag
 import great_expectations as gx
@@ -63,7 +62,6 @@ def valid_cleaned_customer_data() -> pd.DataFrame:
             {
                 "customer_id": 123,
                 "name": "Cookie Monster",
-                "dob": datetime.datetime(1966, 11, 2),
                 "city": "New York",
                 "state": "NY",
                 "zip": "10123",
@@ -80,11 +78,10 @@ def invalid_cleaned_customer_data() -> pd.DataFrame:
             {
                 "customer_id": 987,
                 "name": "Oscar the Grouch",
-                "dob": "June 1, 1969",
                 "city": "New York",
                 "state": "NY",
                 "zip": None,
-                "country": "US",
+                "country": "Sesame Street",
             }
         ]
     )
@@ -93,13 +90,12 @@ def invalid_cleaned_customer_data() -> pd.DataFrame:
 def test_clean_customer_data(raw_customer_data):
     df_cleaned = tutorial.cookbook1.clean_customer_data(raw_customer_data)
 
-    assert df_cleaned.shape == (2, 7)
+    assert df_cleaned.shape == (2, 6)
 
     customer0 = df_cleaned.to_dict(orient="records")[0]
     assert customer0 == {
         "customer_id": 1693133,
         "name": "Samuel Hall",
-        "dob": pd.Timestamp("1976-11-19"),
         "city": "Norcross",
         "state": "GA",
         "zip": "30091",
@@ -110,7 +106,6 @@ def test_clean_customer_data(raw_customer_data):
     assert customer1 == {
         "customer_id": 887837,
         "name": "Ileen van Dael",
-        "dob": pd.Timestamp("1983-09-15"),
         "city": "Utrecht",
         "state": "UT",
         "zip": "3532 XR",
@@ -149,7 +144,7 @@ def test_validate_customer_data_with_invalid_data(invalid_cleaned_customer_data)
         gx.core.expectation_validation_result.ExpectationSuiteValidationResult,
     )
     assert validation_result["success"] is False
-    assert failed_expectations == ["expect_column_values_to_match_regex"]
+    assert failed_expectations == ["expect_column_values_to_be_in_set"]
 
 
 def test_airflow_dag_trigger(tmp_path, monkeypatch):
